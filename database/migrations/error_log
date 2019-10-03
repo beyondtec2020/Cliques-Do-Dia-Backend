@@ -1,0 +1,1 @@
+[04-Sep-2019 18:49:46 America/Sao_Paulo] PHP Fatal error:  Class 'Illuminate\Database\Migrations\Migration' not found in /home/cliqu397/cliquesdodia.com.br/database/migrations/2014_02_09_225721_create_visitor_registry.php on line 6
