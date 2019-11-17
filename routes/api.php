@@ -22,11 +22,17 @@ Route::post('login','API\UserAuthController@login');
 Route::post('login/{social_account}','API\UserAuthController@socialLogin');
 Route::post('new-profile','API\UserRegisterApiController@regiUser');
 
-
-Route::group(['middleware' => ['jwt.verify']], function() {
-    Route::get('user/me','API\UserController@userDetail');
-    Route::post('user/update-me','API\UserController@updateProfile');
-    Route::post('user/update-password','API\UserController@updatePass');
+Route::group(['middleware' => ['jwt.verify'], 'prefix'=>'user'], function() {
+    Route::get('offers','API\AddListController@myOffers');
+    Route::get('me','API\UserController@userDetail');
+    Route::post('update-me','API\UserController@updateProfile');
+    Route::post('update-password','API\UserController@updatePass');
+    Route::post('create-ad','API\AddListController@create');
+    Route::post('update-ad/{id}','API\AddListController@update');
+    Route::put('delete-ad/{id}','API\AddListController@delete');
+    Route::post('offer/{offer_id}/generate-coupon','API\AddListController@generateCoupon');
+    Route::post('offer/{offer_id}/post-review','API\AddListController@postReview');
+    Route::get('coupons','API\AddListController@coupons');
 });
 
 Route::get('search','API\WebAPIController@search');
@@ -37,3 +43,19 @@ Route::get('latest','API\WebAPIController@getLatest');
 Route::get('featured','API\WebAPIController@getFeatured');
 Route::get('coupons','API\WebAPIController@coupons');
 Route::get('single-post','API\WebAPIController@singlePost');
+Route::get('offer/{id}','API\WebAPIController@singleOffer');
+Route::get('amenities','API\WebAPIController@amenities');
+
+
+// Route::group(['middleware' => ['jwt.verify'],'prefix'=>'user'], function() {
+//     Route::get('me','API\UserController@userDetail');
+//     Route::post('update-me','API\UserController@updateProfile');
+//     Route::post('update-password','API\UserController@updatePass');
+//     Route::post('create-ad','API\AddListController@create');
+//     Route::post('update-ad/{id}','API\AddListController@update');
+//     Route::post('delete-ad/{id}','API\AddListController@delete');
+//     Route::get('offers','API\AddListController@myOffers');
+//     Route::post('offer/{offer_id}/generate-coupon','API\AddListController@generateCoupon');
+//     Route::post('offer/{offer_id}/post-review','API\AddListController@postReview');
+//     Route::get('coupons','API\AddListController@coupons');
+// });

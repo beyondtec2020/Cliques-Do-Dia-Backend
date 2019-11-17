@@ -21,23 +21,23 @@ class UserRegisterApiController extends Controller
             'email' => 'required|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
-            
+            logger('Validator' . $validator);
         if ($validator->fails()) {
             return response()->json(['status'=>false,'message'=>$validator->errors()],422);
         }
 
         $user = Sentinel::registerAndActivate($request->all());
-
+        logger('User' . $user);
         // $roleforUser = Sentinel::findUserById(1);
         $user->roles()->attach(3);
 
         //add mailchimp
         if(isset($user->id)){
-            $uRC = new UserRegisterController();    
+            $uRC = new UserRegisterController();
             $uRC->addToMailchimpSubscription($request);
 
             return response()->json(['status'=>true,'message'=>'Success']);
         }
-        
+
     }
 }
