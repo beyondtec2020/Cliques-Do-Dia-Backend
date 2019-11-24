@@ -44,8 +44,8 @@ class AddListController extends Controller
 
 
         $validation = [
-            'title' => 'required|max:30',
-            'short_desc' => 'required|min:30|max:80',
+            'title' => 'required',
+            'short_desc' => 'required',
             'cat_id' => 'required',
             'address' => 'required',
             'city_id' => 'required',
